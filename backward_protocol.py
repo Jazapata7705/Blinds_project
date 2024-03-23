@@ -14,7 +14,7 @@ GPIO.setup(IN2, GPIO.OUT)
 
 # Set up PWM for controlling motor speed
 pwm_frequency = 1000  # Frequency in Hz (1 kHz)
-motor_pwm = GPIO.PWM(IN1, pwm_frequency)
+motor_pwm = GPIO.PWM(IN2, pwm_frequency)
 
 # Function to drive motor forward at a given speed (0-100)
 def backward(speed):
