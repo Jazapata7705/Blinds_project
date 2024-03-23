@@ -29,15 +29,4 @@ def stop():
     GPIO.output(IN2, GPIO.LOW)
 
 # Perform actions
-try:
-    forward(10)     # Move motor forward at 50% speed
-    time.sleep(2)   # Move forward for 2 seconds
-
-    stop()          # Stop motor
-
-
-except KeyboardInterrupt:
-    stop()          # Stop motor on keyboard interrupt
-
-finally:
-    GPIO.cleanup()  # Clean up GPIO pins
+forward(10)     # Move motor forward at 50% speed
