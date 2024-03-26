@@ -7,16 +7,18 @@ import atexit
 # Define GPIO pins for motor control
 IN1 = 17
 IN2 = 18
+GPIO.setmode(GPIO.BCM)
+# Set up GPIO pins
+GPIO.setup(IN1, GPIO.OUT)
+GPIO.setup(IN2, GPIO.OUT)
 
-
-
+GPIO.output(IN1, GPIO.LOW)
+GPIO.output(IN2, GPIO.LOW)
 # Set up PWM for controlling motor speed
-pwm_frequency = 1000  # Frequency in Hz (1 kHz)
+pwm_frequency = 500  # Frequency in Hz (.5 kHz)
 motor_pwm = GPIO.PWM(IN1, pwm_frequency)
 
 # Function to drive motor forward at a given speed (0-100)
-def cleanup_gpio():
-    GPIO.cleanup()
 
 def forward(speed):
     motor_pwm.start(speed)
@@ -31,17 +33,8 @@ def stop():
 
 
 
-def main():
-    # Set GPIO numbering mode
-    GPIO.setmode(GPIO.BCM)  
+if __name__ == '__main__':
+    forward(20)
+    while True:
+        time.sleep(.5)
 
-    # Set up GPIO pins
-    GPIO.setup(IN1, GPIO.OUT)
-    GPIO.setup(IN2, GPIO.OUT)
-
-    atexit.register(cleanup_gpio())
-
-    forward(10)
-
-if __name__ == "__main__":
-    main()
