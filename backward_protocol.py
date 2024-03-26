@@ -1,22 +1,25 @@
 import RPi.GPIO as GPIO
 import time
+import atexit
 
-# Set GPIO numbering mode
-GPIO.setmode(GPIO.BCM)
+
 
 # Define GPIO pins for motor control
 IN1 = 17
 IN2 = 18
-
+GPIO.setmode(GPIO.BCM)
 # Set up GPIO pins
 GPIO.setup(IN1, GPIO.OUT)
 GPIO.setup(IN2, GPIO.OUT)
 
+GPIO.output(IN1, GPIO.LOW)
+GPIO.output(IN2, GPIO.LOW)
 # Set up PWM for controlling motor speed
-pwm_frequency = 1000  # Frequency in Hz (1 kHz)
+pwm_frequency = 500  # Frequency in Hz (.5 kHz)
 motor_pwm = GPIO.PWM(IN2, pwm_frequency)
 
 # Function to drive motor forward at a given speed (0-100)
+
 def backward(speed):
     motor_pwm.start(speed)
     GPIO.output(IN1, GPIO.LOW)
@@ -28,5 +31,7 @@ def stop():
     GPIO.output(IN1, GPIO.LOW)
     GPIO.output(IN2, GPIO.LOW)
 
-# Perform actions
-backward(10)
+if __name__ == '__main__':
+    backward(20)
+    while True:
+        time.sleep(.5)
